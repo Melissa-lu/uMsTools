@@ -25,5 +25,7 @@
 
 #### 其他
 
-SSO 到期时间不会被刷新，但是刷新 metersphere token 有时候会延长 SSO 到期时间
+* SSO 到期时间不会被刷新，但是刷新 metersphere token 有时候会延长 SSO 到期时间
+* 每个页面都是独立的，其他页面也要刷新
+
 
