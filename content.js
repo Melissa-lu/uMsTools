@@ -1,11 +1,25 @@
+const container2 = document.createElement('div');
+container2.style.opacity = 0.7;
+container2.style.top = '40px';
+container2.style.right = '10px';
+container2.style.width = '240px';
+container2.style.zIndex = '1000000';
+container2.style.backgroundColor = '#2c2a49';
+// container2.style.borderRadius = '5px 5px 0 0';
+container2.style.position='fixed'
+// container2.style.padding = '8px 0px 7px 15px'
+
 const container = document.createElement('div');
-container.style.opacity = 0.5;
-container.style.top = '40px';
+container.style.opacity = 0.7;
+container.style.top = '83px';
 container.style.right = '10px';
 container.style.width = '240px';
-container.style.zIndex = '1000';
+container.style.zIndex = '1000000';
+container.style.backgroundColor = '#2c2a49';
+container.style.borderRadius = '0 0 5px 5px';
+container.style.position='fixed'
 
-// 创建按钮元素
+// 刷新seesion的按钮
 const button = document.createElement('button');
 button.innerText = '获取信息中';
 button.style.padding = '10px 20px 10px 30px';
@@ -18,28 +32,77 @@ button.style.fontSize = '10px';
 button.style.width = '240px';
 button.style.textAlign = 'left';
 
+// 对应的关闭按钮
 const closeButton = document.createElement('div');
 closeButton.addEventListener('click', () => {
     container.style.display = 'none'
 })
 closeButton.innerText = 'x'
-container.style.position='fixed'
+
 closeButton.style.position='absolute'
-closeButton.style.width='30px'
+closeButton.style.width='22px'
 closeButton.style.height='20px'
 closeButton.style.top='0px'
 closeButton.style.right='0px'
 closeButton.style.lineHeight='20px'
 closeButton.style.textAlign='center'
-closeButton.style.backgroundColor='red'
+closeButton.style.backgroundColor='#bf6060'
 closeButton.style.opacity = '0.8';
+
+// 输入目标文本的输入框
+const inputElement = document.createElement('input');
+inputElement.id = "tar_inputElement"
+inputElement.placeholder = '输入目标文本';
+inputElement.style.margin = '10px';
+// inputElement.style.marginRight = '0px';
+inputElement.style.padding = '5px';
+inputElement.style.fontSize = '10px';
+inputElement.style.width = '120px';
+
+
+// 对应的提交按钮
+const checkButton = document.createElement('button');
+checkButton.innerText = '点击通过';
+// checkButton.style.padding = '10px 20px 10px 30px';
+checkButton.style.backgroundColor = '#67c23a';
+checkButton.style.color = '#fff';
+checkButton.style.border = 'none';
+checkButton.style.borderRadius = '5px';
+checkButton.style.cursor = 'pointer';
+checkButton.style.fontSize = '10px';
+checkButton.style.width = '60px';
+checkButton.style.height = '26px';
+checkButton.style.lineHeight = '26px';
+checkButton.style.textAlign = 'center';
+checkButton.style.marginRight = '5px';
+
+// 对应的关闭按钮
+const closeButton2 = document.createElement('div');
+closeButton2.addEventListener('click', () => {
+    container2.style.display = 'none'
+})
+closeButton2.innerText = 'x'
+
+closeButton2.style.position='absolute'
+closeButton2.style.width='22px'
+closeButton2.style.height='20px'
+closeButton2.style.top='0px'
+closeButton2.style.right='0px'
+closeButton2.style.lineHeight='20px'
+closeButton2.style.textAlign='center'
+closeButton2.style.backgroundColor='#bf6060'
+closeButton2.style.opacity = '0.8';
 
 container.appendChild(button)
 container.appendChild(closeButton)
+container2.appendChild(inputElement)
+container2.appendChild(checkButton)
+container2.appendChild(closeButton2)
 
 // Prevent default drag behavior
 button.ondragstart = () => false;
 // 将按钮添加到页面上
+document.body.appendChild(container2);
 document.body.appendChild(container);
 
 // 添加点击事件监听器
@@ -146,4 +209,24 @@ function formatDate(date) {
   
     // 格式化字符串
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  }
+}
+
+checkButton.addEventListener('click', () => {
+    specifiedValue = inputElement.value
+    // console.log("**",specifiedValue)
+    // 获取这个表格元素，看了下是第4个
+    var tableElement = document.querySelectorAll('tbody')[3]; 
+    
+    // 遍历表格的所有行
+    for (var i = 0, row; row = tableElement.rows[i]; i++) {
+        // 指定列，第4列和第5列
+        let tar_col_item = row.cells[3].querySelector('textarea')
+        let res_col_item = row.cells[4].querySelector('.el-input').querySelector('input')
+        // 检查当前单元格是否==specifiedValue
+        if (specifiedValue == tar_col_item.value) {
+            // console.log('找到了');
+            res_col_item.value = "通过"
+        }
+    }
+});
+
